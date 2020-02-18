@@ -16,11 +16,6 @@ set('env', ['APP_ENV' => 'prod']);
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
 
-// Shared files/dirs between deploys
-set('shared_files', []);
-set('shared_dirs', ['var']);
-
-
 // Hosts
 host('phpughb.lucasnothnagel.de')
     ->stage('production')
