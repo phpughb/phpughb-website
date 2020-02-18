@@ -24,6 +24,14 @@ host('phpughb.lucasnothnagel.de')
 
 
 // Tasks
+task('deploy:js:install:vendors', function() {
+    run('cd {{release_path}} && yarn install');
+})->desc('Install js vendors');
+
+task('deploy:js:compile:assets', function() {
+    run('cd {{release_path}} && yarn encore production');
+})->desc('Encore Compile Assets');
+
 task('deploy:create_cache_dir', function () {
     // Set cache dir
     set('cache_dir', '{{release_path}}/'.'/var/cache');
@@ -48,6 +56,8 @@ task('deploy', [
     'deploy:update_code',
     'deploy:vendors',
     'deploy:create_cache_dir',
+    'deploy:js:install:vendors',
+    'deploy:js:compile:assets',
     'deploy:clear_paths',
     'deploy:symlink',
     'deploy:unlock',
