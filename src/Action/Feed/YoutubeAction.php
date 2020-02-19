@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Action;
+namespace App\Action\Feed;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Twig\Error\Error;
 
-class IndexAction
+class YoutubeAction
 {
     private Environment $twig;
 
@@ -19,12 +18,10 @@ class IndexAction
     }
 
     /**
-     * @Route("/", name="app_index")
-     *
      * @throws Error
      */
     public function __invoke(): Response
     {
-        return new Response($this->twig->render('base.html.twig'));
+        return new Response($this->twig->render('parts/youtube.html.twig'));
     }
 }
