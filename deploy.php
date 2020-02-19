@@ -8,7 +8,7 @@ require 'recipe/common.php';
 set('application', 'phpughb-website');
 
 // Project repository
-set('repository', 'git@github.com:scriptibus/phpughb-website.git');
+set('repository', 'git@github.com:phpughb/phpughb-website.git');
 
 // Set env
 set('env', ['APP_ENV' => 'prod']);
