@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "easycorp/easy-log-handler": "^1.0.7",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
         "symfony/debug-bundle": "*",
