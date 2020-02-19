@@ -1,6 +1,6 @@
 # phpughb-website
 
-## Setup
+## Setup local
 * Requires you to have php, composer and symfony cli locally installed
 * Clone Repo
 ```
@@ -16,7 +16,7 @@ symfony serve
 ```
 
 
-## Deployment
+## Deploy origin master to production
 * Requires you to have deployer locally installed
 * Requires you to have access for the phpughb user on our production server
 * Checkout master
@@ -30,7 +30,7 @@ git checkout origin/master
 dep deploy production
 ```
 
-## PHP CS
+## PHP CS Fixer
 * Check files
 ```
 vendor/bin/php-cs-fixer fix --dry-run
@@ -40,7 +40,7 @@ vendor/bin/php-cs-fixer fix --dry-run
 vendor/bin/php-cs-fixer fix
 ```
 
-## Tests
+## Unit and functional tests
 * Unit  Test
 ```
 bin/phpunit --testsuite=Unit --testdox
