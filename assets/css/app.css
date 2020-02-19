@@ -1,19 +1,11 @@
 @import "~bootstrap";
 
-.navbar-brand-text{
-    color: #666666;
-    float: right;
-    margin-top: 35px;
-    margin-left: 10px;
-}
 
 .nav-item {
-    border-bottom: 1px solid lightgray;
     text-align: center;
 }
 
 .navbar-light .navbar-nav .active > .nav-link{
     color: #666666;
     font-weight: bolder;
-    border-bottom: 1px solid #666666;
 }

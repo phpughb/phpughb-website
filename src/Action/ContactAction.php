@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Twig\Error\Error;
 
-class IndexAction
+class ContactAction
 {
     private Environment $twig;
 
@@ -19,12 +19,12 @@ class IndexAction
     }
 
     /**
-     * @Route("/", name="app_index")
+     * @Route("/kontakt", name="app_contact")
      *
      * @throws Error
      */
     public function __invoke(): Response
     {
-        return new Response($this->twig->render('base.html.twig'));
+        return new Response($this->twig->render('contact.html.twig'));
     }
 }

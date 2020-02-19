@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Action\Feed;
+namespace App\Action;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use Twig\Error\Error;
 
-class TwitterAction
+class AboutUsAction
 {
     private Environment $twig;
 
@@ -18,10 +19,12 @@ class TwitterAction
     }
 
     /**
+     * @Route("/ueber-uns", name="app_about-us")
+     *
      * @throws Error
      */
     public function __invoke(): Response
     {
-        return new Response($this->twig->render('parts/twitter.html.twig'));
+        return new Response($this->twig->render('about_us.html.twig'));
     }
 }

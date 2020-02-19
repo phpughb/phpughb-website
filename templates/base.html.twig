@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}PHP Usergroup Bremen{% endblock %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app_css') }}
     {% endblock %}
@@ -19,28 +19,17 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
 
-                <h1 class="my-4">PHP Usergroup Bremen</h1>
+                <h1 class="my-4">
+                    {% block heading %}{% endblock %}
+                </h1>
 
-                <!-- Blog Post -->
-                <div class="card mb-4">
-                    <img class="card-img-top" src="http://placehold.it/750x200" alt="Card image cap">
-                    <div class="card-body">
-                        <h2 class="card-title">23.10.2019</h2>
-
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on January 1, 2017 by
-                        <a href="#">Start Bootstrap</a>
-                    </div>
-                </div>
+                {% block content %}{% endblock %}
 
             </div>
 
             <!-- Sidebar Widgets Column -->
             <div class="col-md-4">
-                {{ render(controller('App\\Action\\Feed\\TwitterAction')) }}
-                {{ render(controller('App\\Action\\Feed\\YoutubeAction')) }}
+                {{ include('includes/_twitter.html.twig') }}
             </div>
 
         </div>
