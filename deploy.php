@@ -22,13 +22,12 @@ host('phpughb.lucasnothnagel.de')
     ->user('phpughb')
     ->set('deploy_path', '~/serve/production');
 
-
 // Tasks
-task('deploy:js:install:vendors', function() {
+task('deploy:js:install:vendors', function () {
     run('cd {{release_path}} && yarn install');
 })->desc('Install js vendors');
 
-task('deploy:js:compile:assets', function() {
+task('deploy:js:compile:assets', function () {
     run('cd {{release_path}} && yarn encore production');
 })->desc('Encore Compile Assets');
 
