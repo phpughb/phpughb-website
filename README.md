@@ -1,7 +1,7 @@
 # phpughb-website
 
 ## Setup local
-* Requires you to have php, composer and symfony cli locally installed
+* Requires you to have php, composer, docker and symfony cli locally installed
 * Clone Repo
 ```
 git clone git@github.com:phpughb/phpughb-website.git
@@ -9,6 +9,15 @@ git clone git@github.com:phpughb/phpughb-website.git
 * Install dependencies
 ```
 composer install
+```
+* Start containers (mysql: 3306, mailhog-smtp: 1025, malhog-webui: 8025)
+```
+docker-compose up -d
+```
+* Setup database
+```
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
 ```
 * Start local web server
 ```

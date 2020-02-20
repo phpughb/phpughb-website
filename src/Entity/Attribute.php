@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Attribute
 {
     /**
-     * @ORM\Column(type="integer", true)
+     * @ORM\Column(type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue
      */

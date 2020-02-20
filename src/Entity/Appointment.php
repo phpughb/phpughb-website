@@ -7,12 +7,11 @@ namespace App\Entity;
 use App\Collection\TalkCollection;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @Entity
+ * @ORM\Entity
  *
  * @UniqueEntity(fields={"title"})
  */
