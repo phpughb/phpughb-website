@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login_css') }}
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+            <div class="fadeIn first">
+                <img src="{{ asset('asset/img/logo.png') }}" id="icon"/>
+            </div>
+
+            <form method="post">
+                <input type="text" value="{{ last_username }}" id="inputUsername" class="fadeIn second" name="_username"
+                       placeholder="Username" required>
+                <input type="password" id="inputPassword" class="fadeIn third" name="_password" placeholder="Password"
+                       required>
+                <input type="submit" class="fadeIn fourth" value="Login">
+                <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
+            </form>
+
+            {% if error_message %}
+                <div class="alert alert-danger fadeIn five">{{ error_message.messageKey|trans }}</div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

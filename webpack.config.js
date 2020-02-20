@@ -10,6 +10,8 @@ Encore
 
     .addEntry('app_js', './assets/js/app.js')
     .addStyleEntry('app_css', './assets/css/app.css')
+
+    .addStyleEntry('login_css', './assets/css/login.css')
     .splitEntryChunks()
 
     .enableSingleRuntimeChunk()
