@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @ORM\Entity
+ */
 class User implements UserInterface
 {
     /**
@@ -31,27 +34,29 @@ class User implements UserInterface
      *
      * @Assert\NotBlank
      */
-    private ?string $encryptedPassword = null;
+    private ?string $encodedPassword = null;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="string", length=20)
+     *
+     * @Assert\NotBlank
      */
-    private array $roles;
+    private string $role;
 
-    public function __construct(string $email, array $roles = [])
+    public function __construct(string $email, string $role)
     {
         $this->email = $email;
-        $this->roles = $roles;
+        $this->role = $role;
     }
 
     public function getRoles(): array
     {
-        return $this->roles;
+        return [$this->role];
     }
 
     public function getPassword(): string
     {
-        return $this->encryptedPassword;
+        return $this->encodedPassword;
     }
 
     public function getSalt(): void
@@ -67,5 +72,10 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         //not needed
+    }
+
+    public function setEncodedPassword(string $encodedPassword): void
+    {
+        $this->encodedPassword = $encodedPassword;
     }
 }

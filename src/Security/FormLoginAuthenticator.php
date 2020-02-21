@@ -49,7 +49,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $username = $request->request->get(self::POST_USERNAME);
-        $password = $request->request->get(self::POST_USERNAME);
+        $password = $request->request->get(self::POST_PASSWORD);
 
         return new Credentials($username, $password);
     }

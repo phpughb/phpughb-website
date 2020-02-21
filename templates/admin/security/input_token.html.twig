@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Passwort erstellen - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>Set the Password</h1>
+    <p>Email: {{ email }}</p>
+    {{ form_start(register_form_view) }}
+    {{ form_rest(register_form_view) }}
+    <button type="submit">Senden</button>
+    {{ form_end(register_form_view) }}
+{% endblock %}
+
+

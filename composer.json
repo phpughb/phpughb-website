@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "scriptibus/abstract-collection": "^1.0",
@@ -11,6 +11,7 @@
         "symfony/dotenv": "5.0.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "5.0.*",
+        "symfony/mailer": "5.0.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
@@ -25,6 +26,7 @@
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
         "symfony/debug-bundle": "*",
+        "symfony/maker-bundle": "^1.14",
         "symfony/phpunit-bridge": "*",
         "symfony/profiler-pack": "*",
         "symfony/var-dumper": "*"

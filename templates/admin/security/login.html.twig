@@ -8,26 +8,26 @@
 {% endblock %}
 
 {% block body %}
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-
-            <div class="fadeIn first">
-                <img src="{{ asset('asset/img/logo.png') }}" id="icon"/>
-            </div>
-
-            <form method="post">
-                <input type="text" value="{{ last_username }}" id="inputUsername" class="fadeIn second" name="_username"
-                       placeholder="Username" required>
-                <input type="password" id="inputPassword" class="fadeIn third" name="_password" placeholder="Password"
-                       required>
-                <input type="submit" class="fadeIn fourth" value="Login">
-                <input type="hidden" name="_token" value="{{ csrf_token('authenticate') }}">
-            </form>
-
-            {% if error_message %}
-                <div class="alert alert-danger fadeIn five">{{ error_message.messageKey|trans }}</div>
-            {% endif %}
-
+    {% if error_message %}
+        {{ error_message.messageKey|trans }}
+    {% endif %}
+    <form method="post" class="form-signin">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="/asset/img/logo.png" alt="" width="200">
+            <h1 class="h3 mb-3 font-weight-normal">PHPUGHB Admin</h1>
         </div>
-    </div>
+        <div class="form-label-group">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email Adresse" name="username"
+                   required autofocus>
+            <label for="inputEmail">Email Adresse</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" name="password"
+                   required>
+            <label for="inputPassword">Passwort</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" id="loginBtn" type="submit">Login</button>
+    </form>
 {% endblock %}

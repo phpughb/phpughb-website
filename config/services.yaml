@@ -1,9 +1,12 @@
 parameters:
+    email_sender: '%env(EMAIL_SENDER)%'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $emailSender: '%email_sender%'
 
     App\:
         resource: '../src/*'
