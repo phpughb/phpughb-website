@@ -1,4 +1,16 @@
 {
+    "basster/lazy-response-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "eb9db09d43c64894b6f4d4ab04ed90cbe1197c9b"
+        },
+        "files": [
+            "config/packages/basster_lazy_response.yaml"
+        ]
+    },
     "composer/semver": {
         "version": "1.5.1"
     },

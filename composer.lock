@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eed69b018cb333bfcb9d30fffcd3671f",
+    "content-hash": "5ec672591dd23f71f114c26f6b214f15",
     "packages": [
+        {
+            "name": "basster/lazy-response-bundle",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Basster/lazy-response-bundle.git",
+                "reference": "9e02f84f4585cc10ae137d9fabae25948109e3fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Basster/lazy-response-bundle/zipball/9e02f84f4585cc10ae137d9fabae25948109e3fc",
+                "reference": "9e02f84f4585cc10ae137d9fabae25948109e3fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.15",
+                "phpunit/phpunit": "^8.2",
+                "symfony/event-dispatcher": "^4.3",
+                "symfony/http-foundation": "^4.3",
+                "symfony/http-kernel": "^4.3",
+                "symfony/routing": "^4.3",
+                "symfony/serializer": "^4.3",
+                "twig/twig": "^2.11",
+                "vimeo/psalm": "^3.5"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": "Required when using any of the event handlers.",
+                "symfony/routing": "Required when using the \\Basster\\LazyResponseBundle\\Response\\RedirectResponse",
+                "symfony/serializer": "Required when using the \\Basster\\LazyResponseBundle\\Response\\JsonSerializeResponse",
+                "twig/twig": "Required when using the \\Basster\\LazyResponseBundle\\Response\\TwigResponse"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Basster\\LazyResponseBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ole Rößner",
+                    "email": "ole@roessner.it"
+                }
+            ],
+            "description": "A library to support so-called lazy symfony controller responses.",
+            "time": "2019-10-04T07:00:41+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.8.0",
