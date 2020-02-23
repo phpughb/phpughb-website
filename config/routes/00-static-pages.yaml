@@ -1,0 +1,36 @@
+app_contact:
+  path: /kontakt
+  controller:  &templateController Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+  defaults:
+      template:     contact.html.twig
+      maxAge:       &ttl 86400
+      sharedAge:    *ttl
+
+app_about-us:
+  path: /ueber-un
+  controller:  *templateController
+  defaults:
+    template:     about_us.html.twig
+    maxAge:       *ttl
+    sharedAge:    *ttl
+
+app_data-usage:
+  path: /datenschutz
+  controller:  *templateController
+  defaults:
+    template:     data_usage.html.twig
+    maxAge:       *ttl
+    sharedAge:    *ttl
+
+app_home:
+  path: /
+  controller:  *templateController
+  defaults:
+    template:     home.html.twig
+
+app_imprint:
+  path: /impressum
+  defaults:
+    template:     imprint.html.twig
+    maxAge:       *ttl
+    sharedAge:    *ttl
