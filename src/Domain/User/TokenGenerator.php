@@ -12,7 +12,7 @@ class TokenGenerator
     {
         $random = '';
         $chars = str_split($allowedChars);
-        $allowedCharsLength = count($chars);
+        $allowedCharsLength = \count($chars);
         for ($i = 0; $i < $length; ++$i) {
             $index = random_int(0, $allowedCharsLength - 1);
             $random .= $allowedChars[$index];
