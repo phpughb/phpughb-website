@@ -8,7 +8,7 @@ use Basster\LazyResponseBundle\Response\TemplateResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
-class DashboardAction
+final class DashboardAction
 {
     private Environment $twig;
 

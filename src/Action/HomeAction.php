@@ -7,7 +7,7 @@ namespace App\Action;
 use Basster\LazyResponseBundle\Response\TemplateResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeAction
+final class HomeAction
 {
     /**
      * @Route("/", name="app_home")

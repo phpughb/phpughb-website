@@ -26,7 +26,6 @@ final class UserCreateActionTest extends TestCase
      */
     public function renderInvalidTokenViewWhenTokenNotFound(\Exception $exception): void
     {
-        $twig = $this->prophesize(Environment::class);
         $userCreateTokenRepository = $this->prophesize(TokenAwareRepository::class);
         $formFactory = $this->createMock(FormFactoryInterface::class);
         $userManager = $this->createMock(UserManager::class);

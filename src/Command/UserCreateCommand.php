@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UserCreateCommand extends Command
+final class UserCreateCommand extends Command
 {
     private ValidatorInterface $validator;
     private UserCreateTokenSender $userCreateTokenSender;
