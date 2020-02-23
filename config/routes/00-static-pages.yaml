@@ -7,7 +7,7 @@ app_contact:
       sharedAge:    *ttl
 
 app_about-us:
-  path: /ueber-un
+  path: /ueber-uns
   controller:  *templateController
   defaults:
     template:     about_us.html.twig
@@ -22,14 +22,9 @@ app_data-usage:
     maxAge:       *ttl
     sharedAge:    *ttl
 
-app_home:
-  path: /
-  controller:  *templateController
-  defaults:
-    template:     home.html.twig
-
 app_imprint:
   path: /impressum
+  controller: *templateController
   defaults:
     template:     imprint.html.twig
     maxAge:       *ttl
