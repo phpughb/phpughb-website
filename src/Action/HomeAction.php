@@ -14,6 +14,6 @@ class HomeAction
      */
     public function __invoke(): TemplateResponse
     {
-        return new TemplateResponse('home.html.twig', []);
+        return new TemplateResponse('home.html.twig');
     }
 }

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "basster/lazy-response-bundle",
-            "version": "1.1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Basster/lazy-response-bundle.git",
-                "reference": "9e02f84f4585cc10ae137d9fabae25948109e3fc"
+                "reference": "f5e142b74e11168eeef7b205f3ac81c5c1e44383"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Basster/lazy-response-bundle/zipball/9e02f84f4585cc10ae137d9fabae25948109e3fc",
-                "reference": "9e02f84f4585cc10ae137d9fabae25948109e3fc",
+                "url": "https://api.github.com/repos/Basster/lazy-response-bundle/zipball/f5e142b74e11168eeef7b205f3ac81c5c1e44383",
+                "reference": "f5e142b74e11168eeef7b205f3ac81c5c1e44383",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "A library to support so-called lazy symfony controller responses.",
-            "time": "2019-10-04T07:00:41+00:00"
+            "time": "2020-02-23T22:00:42+00:00"
         },
         {
             "name": "doctrine/annotations",

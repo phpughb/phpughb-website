@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Action\Admin;
 
-use Symfony\Component\HttpFoundation\Response;
+use Basster\LazyResponseBundle\Response\TemplateResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
@@ -20,8 +20,8 @@ class DashboardAction
     /**
      * @Route("/admin/dashboard", name="app_admin_dashboard")
      */
-    public function __invoke(): Response
+    public function __invoke(): TemplateResponse
     {
-        return new Response($this->twig->render('admin/dashboard.html.twig'));
+        return new TemplateResponse('admin/dashboard.html.twig');
     }
 }
