@@ -1,5 +1,6 @@
 parameters:
     email_sender: '%env(EMAIL_SENDER)%'
+    router.request_context.host: '%env(DOMAIN)%'
 
 services:
     _defaults:
