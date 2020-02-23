@@ -10,6 +10,9 @@ set('application', 'phpughb-website');
 // Project repository
 set('repository', 'git@github.com:phpughb/phpughb-website.git');
 
+// Keep .env.local
+set('shared_files', ['.env.local']);
+
 // Set env
 set('env', ['APP_ENV' => 'prod']);
 
@@ -53,6 +56,7 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
+    'deploy:shared',
     'deploy:vendors',
     'deploy:create_cache_dir',
     'deploy:js:install:vendors',
