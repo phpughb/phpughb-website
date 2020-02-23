@@ -6,7 +6,9 @@ namespace App\Action\Admin\Security;
 
 use App\Domain\User\UserManager;
 use App\Form\RegisterType;
-use App\Repository\UserCreateTokenRepository;
+use App\Repository\TokenAwareRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,17 +17,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
-class UserCreateAction
+final class UserCreateAction
 {
     private Environment $twig;
-    private UserCreateTokenRepository $userCreateTokenRepository;
+    private TokenAwareRepository $userCreateTokenRepository;
     private FormFactoryInterface $formFactory;
     private RouterInterface $router;
     private UserManager $userManager;
 
     public function __construct(
         Environment $twig,
-        UserCreateTokenRepository $userCreateTokenRepository,
+        TokenAwareRepository $userCreateTokenRepository,
         FormFactoryInterface $formFactory,
         RouterInterface $router,
         UserManager $userManager
@@ -42,8 +44,9 @@ class UserCreateAction
      */
     public function __invoke(string $token, Request $request): Response
     {
-        $userCreateToken = $this->userCreateTokenRepository->findOneByToken($token);
-        if ($userCreateToken === null) {
+        try {
+            $userCreateToken = $this->userCreateTokenRepository->findOneByToken($token);
+        } catch (NoResultException | NonUniqueResultException $ex) {
             return new Response($this->twig->render('admin/security/invalid_token.html.twig'));
         }
 

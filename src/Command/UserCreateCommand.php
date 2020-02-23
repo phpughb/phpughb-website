@@ -42,7 +42,7 @@ class UserCreateCommand extends Command
         $addUserDto = new AddUserDto($email, $isAdmin);
 
         $violationList = $this->validator->validate($addUserDto);
-        if (count($violationList) > 0) {
+        if (\count($violationList) > 0) {
             /** @var ConstraintViolationInterface $violation */
             foreach ($violationList as $violation) {
                 $io->error(

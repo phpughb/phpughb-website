@@ -42,11 +42,11 @@ dep deploy production
 ## PHP CS Fixer
 * Check files
 ```
-vendor/bin/php-cs-fixer fix --dry-run
+composer run-script cs-check
 ```
 * Fix files
 ```
-vendor/bin/php-cs-fixer fix
+composer run-script cs-fix
 ```
 
 ## Unit and functional tests
