@@ -25,10 +25,10 @@ class Appointment
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=200, unique=true)
+     * @ORM\Column(type="string", length=150, unique=true)
      *
      * @Assert\NotBlank
-     * @Assert\Length(max="200")
+     * @Assert\Length(max="150")
      */
     private string $title;
 

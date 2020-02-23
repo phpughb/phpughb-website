@@ -21,7 +21,7 @@ class User implements UserInterface
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=200, unique=true)
+     * @ORM\Column(type="string", length=150, unique=true)
      *
      * @Assert\NotBlank
      * @Assert\Email
