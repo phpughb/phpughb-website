@@ -1,0 +1,8 @@
+.nav-item {
+    text-align: center;
+}
+
+.navbar-light .navbar-nav .active > .nav-link{
+    color: #666666;
+    font-weight: bolder;
+}

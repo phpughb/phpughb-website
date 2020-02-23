@@ -85,13 +85,3 @@ body {
     font-size: 12px;
     color: #777;
 }
-
-#loginBtn {
-    background-color: #8493ce;
-    border-color: #8493ce;
-}
-
-#loginBtn:hover {
-    background-color: #4d5b94;
-    border-color: #4d5b94;
-}
