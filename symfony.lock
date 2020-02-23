@@ -162,6 +162,9 @@
     "psr/log": {
         "version": "1.1.2"
     },
+    "roave/security-advisories": {
+        "version": "dev-master"
+    },
     "scriptibus/abstract-collection": {
         "version": "1.0.6"
     },
