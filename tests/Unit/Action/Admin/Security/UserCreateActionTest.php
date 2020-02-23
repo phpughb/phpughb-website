@@ -7,12 +7,12 @@ namespace App\Tests\Unit\Action\Admin\Security;
 use App\Action\Admin\Security\UserCreateAction;
 use App\Domain\User\UserManager;
 use App\Repository\TokenAwareRepository;
+use Basster\LazyResponseBundle\Response\TemplateResponse;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 /**
@@ -29,25 +29,19 @@ final class UserCreateActionTest extends TestCase
         $twig = $this->prophesize(Environment::class);
         $userCreateTokenRepository = $this->prophesize(TokenAwareRepository::class);
         $formFactory = $this->createMock(FormFactoryInterface::class);
-        $router = $this->createMock(RouterInterface::class);
         $userManager = $this->createMock(UserManager::class);
 
         $token = 'invalid-token';
-        $body = '<html />';
 
         $userCreateTokenRepository
-          ->findOneByToken($token)
-          ->shouldBeCalled()
-          ->willThrow($exception);
+            ->findOneByToken($token)
+            ->shouldBeCalled()
+            ->willThrow($exception);
 
-        $twig->render('admin/security/invalid_token.html.twig')
-             ->shouldBeCalled()
-             ->willReturn($body);
-
-        $action = new UserCreateAction($twig->reveal(), $userCreateTokenRepository->reveal(), $formFactory, $router,
-          $userManager);
+        $action = new UserCreateAction($userCreateTokenRepository->reveal(), $formFactory, $userManager);
         $response = $action->__invoke($token, new Request());
-        self::assertSame($body, $response->getContent());
+        self::assertInstanceOf(TemplateResponse::class, $response);
+        self::assertSame('admin/security/invalid_token.html.twig', $response->getTemplate());
     }
 
     public function provideInvalidTokenExceptions(): iterable
