@@ -17,10 +17,11 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class UserCreateActionTest.
+ * @covers \App\Action\Admin\Security\UserCreateAction
  */
 final class UserCreateActionTest extends TestCase
 {
@@ -115,5 +116,54 @@ final class UserCreateActionTest extends TestCase
 
         self::assertInstanceOf(RedirectResponse::class, $response);
         self::assertSame('app_home', $response->getRouteName());
+    }
+
+    /**
+     * @test
+     */
+    public function renderInputTokenViewWhenTokenWasValid(): void
+    {
+        $expectedTemplate = 'admin/security/input_token.html.twig';
+        $userCreateToken = new UserCreateToken('some-token', 'some@email.de', false);
+        $this->userCreateTokenRepository
+            ->findOneByToken($userCreateToken->getToken())
+            ->shouldBeCalled()
+            ->willReturn($userCreateToken);
+
+        $form = $this->prophesize(FormInterface::class);
+        $this->formFactory
+            ->create(RegisterType::class)
+            ->shouldBeCalled()
+            ->willReturn($form->reveal());
+
+        $request = new Request();
+        $form
+            ->handleRequest($request)
+            ->shouldBeCalled();
+        $form
+            ->isSubmitted()
+            ->shouldBeCalled()
+            ->willReturn(false);
+
+        $formView = $this->prophesize(FormView::class);
+        $formViewDummy = $formView->reveal();
+        $form
+            ->createView()
+            ->shouldBeCalled()
+            ->wilLReturn($formViewDummy);
+
+        $action = new UserCreateAction(
+            $this->userCreateTokenRepository->reveal(),
+            $this->formFactory->reveal(),
+            $this->userManager->reveal()
+        );
+        $response = $action->__invoke($userCreateToken->getToken(), $request);
+
+        self::assertInstanceOf(TemplateResponse::class, $response);
+        self::assertSame($expectedTemplate, $response->getTemplate());
+        self::assertSame([
+            'register_form_view' => $formViewDummy,
+            'email' => $userCreateToken->getEmail(),
+        ], $response->getData());
     }
 }
