@@ -24,6 +24,5 @@ class GetPagesSmokeTest extends WebTestCase
     {
         yield 'Home' => ['/'];
         yield 'Login' => ['/admin/login'];
-        yield 'CreateUser' => ['/admin/nutzer-erstellen/some-token'];
     }
 }
