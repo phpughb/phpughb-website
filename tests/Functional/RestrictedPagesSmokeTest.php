@@ -13,7 +13,7 @@ class RestrictedPagesSmokeTest extends WebTestCase
      * @test
      * @dataProvider provideRestrictedPages
      */
-    public function testRestrictedPagesRedirectToLogin(string $path): void
+    public function restrictedPagesRedirectedToLogin(string $path): void
     {
         $client = self::createClient();
         $client->request(Request::METHOD_GET, $path);

@@ -13,7 +13,7 @@ class GetPagesSmokeTest extends WebTestCase
      * @test
      * @dataProvider provideGetRoutes
      */
-    public function testGetPages(string $path): void
+    public function getPagesAreSuccessful(string $path): void
     {
         $client = self::createClient();
         $client->request(Request::METHOD_GET, $path);

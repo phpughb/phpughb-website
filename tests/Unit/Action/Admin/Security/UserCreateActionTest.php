@@ -60,7 +60,16 @@ final class UserCreateActionTest extends TestCase
         self::assertSame($invalidTokenTemplate, $response->getTemplate());
     }
 
-    public function testCreateUserAndRedirectToHomeWhenPasswordIsProvided(): void
+    public function provideInvalidTokenExceptions(): iterable
+    {
+        yield 'token not found' => [new NoResultException()];
+        yield 'duplicated token, for some reason' => [new NonUniqueResultException()];
+    }
+
+    /**
+     * @test
+     */
+    public function createUserAndRedirectToHomeWhenFormIsSubmittedAndValid(): void
     {
         $userCreateToken = new UserCreateToken('some-token', 'some@email.de', false);
         $this->userCreateTokenRepository
@@ -106,11 +115,5 @@ final class UserCreateActionTest extends TestCase
 
         self::assertInstanceOf(RedirectResponse::class, $response);
         self::assertSame('app_home', $response->getRouteName());
-    }
-
-    public function provideInvalidTokenExceptions(): iterable
-    {
-        yield 'token not found' => [new NoResultException()];
-        yield 'duplicated token, for some reason' => [new NonUniqueResultException()];
     }
 }
