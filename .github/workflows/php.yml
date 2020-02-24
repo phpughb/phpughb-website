@@ -13,5 +13,11 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
+    - name: Install js dependencies
+      run: yarn install --no-progress
+
+    - name: Build webpack
+      run: yarn encore prod
+
     - name: Run test suite
       run: bin/phpunit
