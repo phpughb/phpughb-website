@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Action\Admin\Security;
 
-use App\Domain\User\UserManager;
+use App\Domain\User\UserCreateTokenManager;
 use App\Form\RegisterType;
 use App\Repository\TokenAwareRepository;
 use Basster\LazyResponseBundle\Response\LazyResponseInterface;
@@ -20,16 +20,16 @@ final class UserCreateAction
 {
     private TokenAwareRepository $userCreateTokenRepository;
     private FormFactoryInterface $formFactory;
-    private UserManager $userManager;
+    private UserCreateTokenManager $userCreateTokenManager;
 
     public function __construct(
         TokenAwareRepository $userCreateTokenRepository,
         FormFactoryInterface $formFactory,
-        UserManager $userManager
+        UserCreateTokenManager $userCreateTokenManager
     ) {
         $this->userCreateTokenRepository = $userCreateTokenRepository;
         $this->formFactory = $formFactory;
-        $this->userManager = $userManager;
+        $this->userCreateTokenManager = $userCreateTokenManager;
     }
 
     /**
@@ -48,7 +48,7 @@ final class UserCreateAction
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->getData()['password'];
-            $this->userManager->create($userCreateToken->getEmail(), $password, $userCreateToken->isAdmin());
+            $this->userCreateTokenManager->activate($userCreateToken, $password);
 
             return new RedirectResponse('app_home');
         }
