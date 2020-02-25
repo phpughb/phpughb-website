@@ -9,14 +9,9 @@ use Scriptibus\AbstractCollection\AbstractCollection;
 
 class TalkCollection extends AbstractCollection
 {
-    protected static function getClass(): string
-    {
-        return Talk::class;
-    }
-
     public function __construct(Talk ...$talks)
     {
-        parent::__construct($talks);
+        parent::__construct(...$talks);
     }
 
     public function offsetGet($offset): Talk
@@ -27,5 +22,10 @@ class TalkCollection extends AbstractCollection
     public function current(): Talk
     {
         return parent::current();
+    }
+
+    protected static function getClass(): string
+    {
+        return Talk::class;
     }
 }

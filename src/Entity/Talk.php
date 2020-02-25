@@ -33,11 +33,30 @@ class Talk
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Appointment", inversedBy="talks")
      */
-    private Appointment $appointment;
+    private ?Appointment $appointment = null;
 
-    public function __construct(string $title, Appointment $appointment)
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Speaker", inversedBy="talks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Speaker $speaker;
+
+    public function __construct(string $title, Speaker $speaker)
     {
         $this->title = $title;
+        $this->speaker = $speaker;
+        $speaker->addTalk($this);
+    }
+
+    public function getSpeaker(): ?Speaker
+    {
+        return $this->speaker;
+    }
+
+    public function setAppointment(Appointment $appointment): self
+    {
         $this->appointment = $appointment;
+
+        return $this;
     }
 }

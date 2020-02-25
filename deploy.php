@@ -23,7 +23,8 @@ set('git_tty', true);
 host('phpughb.lucasnothnagel.de')
     ->stage('production')
     ->user('phpughb')
-    ->set('deploy_path', '~/serve/production');
+    ->set('deploy_path', '~/serve/production')
+;
 
 // Tasks
 task('deploy:js:install:vendors', function () {

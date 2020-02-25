@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Collection\TalkCollection;
-use DateTime;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,19 +43,19 @@ class Appointment
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $dateTime;
+    private ?DateTimeInterface $dateTime;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Talk", mappedBy="appointment")
      */
-    private TalkCollection $talks;
+    private Collection $talks;
 
-    public function __construct(string $title, ?string $text = null, ?DateTime $dateTime = null, array $talks = [])
+    public function __construct(string $title, ?string $text = null, ?DateTimeInterface $dateTime = null)
     {
         $this->title = $title;
         $this->text = $text;
         $this->dateTime = $dateTime;
-        $this->talks = new TalkCollection(...$this->talks);
+        $this->talks = new ArrayCollection();
     }
 
     public function getTitle(): string
@@ -62,8 +63,16 @@ class Appointment
         return $this->title;
     }
 
-    public function getDateTime(): ?DateTime
+    public function getDateTime(): ?DateTimeInterface
     {
         return $this->dateTime;
+    }
+
+    public function addTalk(Talk $talk): self
+    {
+        $this->talks->add($talk);
+        $talk->setAppointment($this);
+
+        return $this;
     }
 }

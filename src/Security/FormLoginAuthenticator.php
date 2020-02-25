@@ -29,11 +29,6 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
-    protected function getLoginUrl(): string
-    {
-        return $this->router->generate('app_admin_login');
-    }
-
     public function supports(Request $request): bool
     {
         $routeCorrect = $request->attributes->get('_route') === self::LOGIN_ROUTE;
@@ -73,5 +68,10 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
         return new RedirectResponse($this->router->generate('app_admin_dashboard'));
+    }
+
+    protected function getLoginUrl(): string
+    {
+        return $this->router->generate('app_admin_login');
     }
 }

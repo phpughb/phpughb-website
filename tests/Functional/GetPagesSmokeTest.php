@@ -7,7 +7,11 @@ namespace App\Tests\Functional;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class GetPagesSmokeTest extends WebTestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class GetPagesSmokeTest extends WebTestCase
 {
     /**
      * @test

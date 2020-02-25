@@ -30,7 +30,8 @@ final class UserCreateCommand extends Command
         $this
             ->setDescription('Sendet eine Aktivierungs-Email zur angegebenen Adresse')
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
-            ->addOption('isAdmin', null, InputOption::VALUE_NONE, 'isAdmin');
+            ->addOption('isAdmin', null, InputOption::VALUE_NONE, 'isAdmin')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

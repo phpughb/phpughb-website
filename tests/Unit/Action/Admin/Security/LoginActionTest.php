@@ -16,8 +16,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @covers \App\Action\Admin\Security\LoginAction
+ *
+ * @internal
  */
-class LoginActionTest extends TestCase
+final class LoginActionTest extends TestCase
 {
     private ObjectProphecy $authenticationUtils;
     private ObjectProphecy $tokenStorage;
@@ -39,18 +41,20 @@ class LoginActionTest extends TestCase
         $this->tokenStorage
             ->getToken()
             ->shouldBeCalled()
-            ->willReturn($token->reveal());
+            ->willReturn($token->reveal())
+        ;
 
         $token
             ->getUser()
             ->shouldBeCalled()
-            ->willReturn(new User('some@email.de', 'SOME_ROLE'));
+            ->willReturn(new User('some@email.de', 'SOME_ROLE'))
+        ;
 
         $action = new LoginAction($this->authenticationUtils->reveal(), $this->tokenStorage->reveal());
         $response = $action->__invoke();
 
-        self::assertInstanceOf(RedirectResponse::class, $response);
-        self::assertSame($expectedRouteName, $response->getRouteName());
+        static::assertInstanceOf(RedirectResponse::class, $response);
+        static::assertSame($expectedRouteName, $response->getRouteName());
     }
 
     /**
@@ -64,12 +68,13 @@ class LoginActionTest extends TestCase
         $this->tokenStorage
             ->getToken()
             ->shouldBeCalled()
-            ->willReturn($token->reveal());
+            ->willReturn($token->reveal())
+        ;
 
         $action = new LoginAction($this->authenticationUtils->reveal(), $this->tokenStorage->reveal());
         $response = $action->__invoke();
 
-        self::assertInstanceOf(TemplateResponse::class, $response);
-        self::assertSame($expectedTemplate, $response->getTemplate());
+        static::assertInstanceOf(TemplateResponse::class, $response);
+        static::assertSame($expectedTemplate, $response->getTemplate());
     }
 }
