@@ -1,14 +1,19 @@
 # phpughb-website
 
 ## Setup local
-* Requires you to have php, composer, docker and symfony cli locally installed
+* Requires you to have php, composer, yarn, docker and symfony cli locally installed
 * Clone Repo
 ```
 git clone git@github.com:phpughb/phpughb-website.git
 ```
-* Install dependencies
+* Install PHP dependencies
 ```
 composer install
+```
+* Build Frontend
+```
+yarn install
+yarn encore dev
 ```
 * Start containers (mysql: 3306, mailhog-smtp: 1025, malhog-webui: 8025)
 ```
