@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Domain\User\UserCreateTokenSender;
+use App\Domain\User\UserCreateTokenManager;
 use App\Dto\AddUserDto;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class UserCreateCommand extends Command
 {
     private ValidatorInterface $validator;
-    private UserCreateTokenSender $userCreateTokenSender;
+    private UserCreateTokenManager $userCreateTokenSender;
 
-    public function __construct(ValidatorInterface $validator, UserCreateTokenSender $userCreateTokenSender)
+    public function __construct(ValidatorInterface $validator, UserCreateTokenManager $userCreateTokenSender)
     {
         parent::__construct('app:user:create');
         $this->validator = $validator;

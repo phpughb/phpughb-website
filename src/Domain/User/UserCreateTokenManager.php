@@ -10,26 +10,29 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
-class UserCreateTokenSender
+class UserCreateTokenManager
 {
     private TokenGenerator $tokenGenerator;
     private EntityManagerInterface $entityManager;
     private MailerInterface $mailer;
     private Environment $twig;
     private string $emailSender;
+    private UserManager $userManager;
 
     public function __construct(
         TokenGenerator $tokenGenerator,
         EntityManagerInterface $entityManager,
         MailerInterface $mailer,
         Environment $twig,
-    string $emailSender
+        UserManager $userManager,
+        string $emailSender
     ) {
         $this->tokenGenerator = $tokenGenerator;
         $this->entityManager = $entityManager;
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->emailSender = $emailSender;
+        $this->userManager = $userManager;
     }
 
     public function send(string $emailAddress, bool $isAdmin): void
@@ -56,5 +59,16 @@ class UserCreateTokenSender
 
         $this->entityManager->persist($userCreateToken);
         $this->entityManager->flush($userCreateToken);
+    }
+
+    public function activate(UserCreateToken $userCreateToken, string $plainPassword): void
+    {
+        $this->userManager->create(
+            $userCreateToken->getEmail(),
+            $plainPassword,
+            $userCreateToken->isAdmin()
+        );
+        $this->entityManager->remove($userCreateToken);
+        $this->entityManager->flush();
     }
 }

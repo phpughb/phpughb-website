@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Action\Admin\Security;
 
 use App\Action\Admin\Security\UserCreateAction;
-use App\Domain\User\UserManager;
+use App\Domain\User\UserCreateTokenManager;
 use App\Entity\UserCreateToken;
 use App\Form\RegisterType;
 use App\Repository\TokenAwareRepository;
@@ -27,13 +27,13 @@ final class UserCreateActionTest extends TestCase
 {
     private ObjectProphecy $userCreateTokenRepository;
     private ObjectProphecy $formFactory;
-    private ObjectProphecy $userManager;
+    private ObjectProphecy $userCreateTokenManager;
 
     protected function setUp(): void
     {
         $this->userCreateTokenRepository = $this->prophesize(TokenAwareRepository::class);
         $this->formFactory = $this->prophesize(FormFactoryInterface::class);
-        $this->userManager = $this->prophesize(UserManager::class);
+        $this->userCreateTokenManager = $this->prophesize(UserCreateTokenManager::class);
     }
 
     /**
@@ -53,7 +53,7 @@ final class UserCreateActionTest extends TestCase
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
             $this->formFactory->reveal(),
-            $this->userManager->reveal()
+            $this->userCreateTokenManager->reveal()
         );
         $response = $action->__invoke($token, new Request());
 
@@ -103,14 +103,14 @@ final class UserCreateActionTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($data);
 
-        $this->userManager
-            ->create($userCreateToken->getEmail(), $data['password'], $userCreateToken->isAdmin())
+        $this->userCreateTokenManager
+            ->activate($userCreateToken, $data['password'])
             ->shouldBeCalled();
 
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
             $this->formFactory->reveal(),
-            $this->userManager->reveal()
+            $this->userCreateTokenManager->reveal()
         );
         $response = $action->__invoke($userCreateToken->getToken(), $request);
 
@@ -155,7 +155,7 @@ final class UserCreateActionTest extends TestCase
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
             $this->formFactory->reveal(),
-            $this->userManager->reveal()
+            $this->userCreateTokenManager->reveal()
         );
         $response = $action->__invoke($userCreateToken->getToken(), $request);
 
