@@ -75,13 +75,4 @@ class Appointment
 
         return $this;
     }
-
-    public function withTalk(Talk $talk): self
-    {
-        $new = clone $this;
-        $new->talks->add($talk);
-        $talk->setAppointment($new);
-
-        return $new;
-    }
 }

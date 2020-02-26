@@ -17,16 +17,13 @@ class AppointmentFixtures extends Fixture implements DependentFixtureInterface
         /** @var \App\Entity\Talk $talk */
         $talk = $this->getReference(TalkFixtures::TALK_SOLID);
 
-        $appointment = new Appointment(
+        $appointment = (new Appointment(
           '#PHPUGHB III',
           'Lorem ipsum',
           DateTimeImmutable::createFromFormat('Y-m-d H:i', '2020-03-11 18:30')
-        );
-
-        // at this point the "old" appointment is overwritten and will get garbage collected ^^
-        // when the appointment is "created" via doctrine its reference is stored inside the object and will be cloned,
-        // as well.
-        $appointment = $appointment->withTalk($talk);
+        ))
+            ->addTalk($talk)
+        ;
 
         $manager->persist($appointment);
 

@@ -52,7 +52,7 @@ class Talk
     {
         $this->title = $title;
         $this->speaker = $speaker;
-        $speaker->withTalk($this);
+        $speaker->addTalk($this);
         $this->attributes = new ArrayCollection();
     }
 
@@ -76,23 +76,21 @@ class Talk
         return clone $this->attributes;
     }
 
-    public function withAttribute(Attribute $attribute): self
+    public function addAttribute(Attribute $attribute): self
     {
-        $new = clone $this;
-        if (!$new->attributes->contains($attribute)) {
-            $new->attributes[] = $attribute;
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
         }
 
-        return $new;
+        return $this;
     }
 
-    public function withoutAttribute(Attribute $attribute): self
+    public function removeAttribute(Attribute $attribute): self
     {
-        $new = clone $this;
-        if ($new->attributes->contains($attribute)) {
-            $new->attributes->removeElement($attribute);
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
         }
 
-        return $new;
+        return $this;
     }
 }

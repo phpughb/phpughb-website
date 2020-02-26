@@ -12,7 +12,7 @@ class UserFixture extends Fixture
 {
     public const USER_OLE = 'user:Ole';
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $user = new User('ole@phpughb.de', 'ROLE_ADMIN');
         $user->setEncodedPassword('<password>');

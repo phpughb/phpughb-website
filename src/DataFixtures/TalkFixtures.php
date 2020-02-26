@@ -17,7 +17,7 @@ class TalkFixtures extends Fixture implements DependentFixtureInterface
     public const SPEAKER_OLE = 'speaker:Ole';
     public const TALK_SOLID = 'talk:SOLIDe Symfony Apps';
 
-    public function load(ObjectManager $manager):void
+    public function load(ObjectManager $manager): void
     {
         /** @var \App\Entity\User $oleUser */
         $oleUser = $this->getReference(UserFixture::USER_OLE);
@@ -26,8 +26,8 @@ class TalkFixtures extends Fixture implements DependentFixtureInterface
         $twitterAttr = new Attribute($twitterType, 'djbasster');
 
         $speaker = (new Speaker('Ole', 'Rößner'))
-            ->withAttribute($twitterAttr)
-            ->withUser($oleUser)
+            ->addAttribute($twitterAttr)
+            ->linkUser($oleUser)
           ;
 
         $talk = new Talk('SOLIDe Symfony Apps', $speaker);
@@ -46,7 +46,7 @@ class TalkFixtures extends Fixture implements DependentFixtureInterface
     /**
      * {@inheritdoc}
      */
-    public function getDependencies():array
+    public function getDependencies(): array
     {
         return [UserFixture::class];
     }
