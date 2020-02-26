@@ -35,9 +35,21 @@ class Attribute
      */
     private ?string $url;
 
-    public function __construct(string $value, ?string $url = null)
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\AttributeType")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private AttributeType $type;
+
+    public function __construct(AttributeType $type, string $value, ?string $url = null)
     {
+        $this->type = $type;
         $this->value = $value;
         $this->url = $url;
+    }
+
+    public function getType(): AttributeType
+    {
+        return $this->type;
     }
 }

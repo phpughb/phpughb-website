@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,11 +43,17 @@ class Talk
      */
     private Speaker $speaker;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
+     */
+    private Collection $attributes;
+
     public function __construct(string $title, Speaker $speaker)
     {
         $this->title = $title;
         $this->speaker = $speaker;
-        $speaker->addTalk($this);
+        $speaker->withTalk($this);
+        $this->attributes = new ArrayCollection();
     }
 
     public function getSpeaker(): ?Speaker
@@ -58,5 +66,33 @@ class Talk
         $this->appointment = $appointment;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return clone $this->attributes;
+    }
+
+    public function withAttribute(Attribute $attribute): self
+    {
+        $new = clone $this;
+        if (!$new->attributes->contains($attribute)) {
+            $new->attributes[] = $attribute;
+        }
+
+        return $new;
+    }
+
+    public function withoutAttribute(Attribute $attribute): self
+    {
+        $new = clone $this;
+        if ($new->attributes->contains($attribute)) {
+            $new->attributes->removeElement($attribute);
+        }
+
+        return $new;
     }
 }

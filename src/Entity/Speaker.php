@@ -37,20 +37,21 @@ class Speaker
     private string $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $twitter;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Talk", mappedBy="speaker", orphanRemoval=true)
      */
     private Collection $talks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
+     */
+    private Collection $attributes;
 
     public function __construct(string $firstname, string $lastname)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->talks = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,11 +64,12 @@ class Speaker
         return $this->user;
     }
 
-    public function linkUser(?User $user): self
+    public function withUser(?User $user): self
     {
-        $this->user = $user;
+        $new = clone $this;
+        $new->user = $user;
 
-        return $this;
+        return $new;
     }
 
     public function getFullname(): string
@@ -87,29 +89,46 @@ class Speaker
         return $this->lastname;
     }
 
-    public function getTwitter(): ?string
-    {
-        return $this->twitter;
-    }
-
-    public function setTwitter(?string $twitter): self
-    {
-        $this->twitter = $twitter;
-
-        return $this;
-    }
-
     public function getTalks(): TalkCollection
     {
         return new TalkCollection(...$this->talks->toArray());
     }
 
-    public function addTalk(Talk $talk): self
+    public function withTalk(Talk $talk): self
     {
-        if (!$this->talks->contains($talk)) {
-            $this->talks[] = $talk;
+        $new = clone $this;
+        if (!$new->talks->contains($talk)) {
+            $new->talks[] = $talk;
         }
 
-        return $this;
+        return $new;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return clone $this->attributes;
+    }
+
+    public function withAttribute(Attribute $attribute): self
+    {
+        $new = clone $this;
+        if (!$new->attributes->contains($attribute)) {
+            $new->attributes[] = $attribute;
+        }
+
+        return $new;
+    }
+
+    public function withoutAttribute(Attribute $attribute): self
+    {
+        $new = clone $this;
+        if ($new->attributes->contains($attribute)) {
+            $new->attributes->removeElement($attribute);
+        }
+
+        return $new;
     }
 }
