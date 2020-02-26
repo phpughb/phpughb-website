@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Collection\TalkCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -98,12 +99,9 @@ class Speaker
         return $this;
     }
 
-    /**
-     * @return Collection|Talk[]
-     */
-    public function getTalks(): Collection
+    public function getTalks(): TalkCollection
     {
-        return $this->talks;
+        return new TalkCollection(...$this->talks->toArray());
     }
 
     public function addTalk(Talk $talk): self

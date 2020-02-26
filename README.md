@@ -57,11 +57,11 @@ dep deploy production
 ## PHP CS Fixer
 * Check files
 ```
-composer run-script cs-check
+composer cs-check
 ```
 * Fix files
 ```
-composer run-script cs-fix
+composer cs-fix
 ```
 
 ## Unit and functional tests
