@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @covers \App\Action\Admin\Security\UserCreateAction
+ *
+ * @internal
  */
 final class UserCreateActionTest extends TestCase
 {
@@ -37,8 +39,9 @@ final class UserCreateActionTest extends TestCase
     }
 
     /**
-     * @test
      * @dataProvider provideInvalidTokenExceptions
+     *
+     * @test
      */
     public function renderInvalidTokenViewWhenTokenNotFound(\Exception $exception): void
     {
@@ -48,7 +51,8 @@ final class UserCreateActionTest extends TestCase
         $this->userCreateTokenRepository
             ->findOneByToken($token)
             ->shouldBeCalled()
-            ->willThrow($exception);
+            ->willThrow($exception)
+        ;
 
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
@@ -57,8 +61,8 @@ final class UserCreateActionTest extends TestCase
         );
         $response = $action->__invoke($token, new Request());
 
-        self::assertInstanceOf(TemplateResponse::class, $response);
-        self::assertSame($invalidTokenTemplate, $response->getTemplate());
+        static::assertInstanceOf(TemplateResponse::class, $response);
+        static::assertSame($invalidTokenTemplate, $response->getTemplate());
     }
 
     public function provideInvalidTokenExceptions(): iterable
@@ -76,36 +80,43 @@ final class UserCreateActionTest extends TestCase
         $this->userCreateTokenRepository
             ->findOneByToken($userCreateToken->getToken())
             ->shouldBeCalled()
-            ->willReturn($userCreateToken);
+            ->willReturn($userCreateToken)
+        ;
 
         $form = $this->prophesize(FormInterface::class);
         $this->formFactory
             ->create(RegisterType::class)
             ->shouldBeCalled()
-            ->willReturn($form->reveal());
+            ->willReturn($form->reveal())
+        ;
 
         $request = new Request();
         $form
             ->handleRequest($request)
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+        ;
         $form
             ->isSubmitted()
             ->shouldBeCalled()
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
         $form
             ->isValid()
             ->shouldBeCalled()
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
 
         $data = ['password' => 'some-password'];
         $form
             ->getData()
             ->shouldBeCalled()
-            ->willReturn($data);
+            ->willReturn($data)
+        ;
 
         $this->userCreateTokenManager
             ->activate($userCreateToken, $data['password'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+        ;
 
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
@@ -114,8 +125,8 @@ final class UserCreateActionTest extends TestCase
         );
         $response = $action->__invoke($userCreateToken->getToken(), $request);
 
-        self::assertInstanceOf(RedirectResponse::class, $response);
-        self::assertSame('app_home', $response->getRouteName());
+        static::assertInstanceOf(RedirectResponse::class, $response);
+        static::assertSame('app_home', $response->getRouteName());
     }
 
     /**
@@ -128,29 +139,34 @@ final class UserCreateActionTest extends TestCase
         $this->userCreateTokenRepository
             ->findOneByToken($userCreateToken->getToken())
             ->shouldBeCalled()
-            ->willReturn($userCreateToken);
+            ->willReturn($userCreateToken)
+        ;
 
         $form = $this->prophesize(FormInterface::class);
         $this->formFactory
             ->create(RegisterType::class)
             ->shouldBeCalled()
-            ->willReturn($form->reveal());
+            ->willReturn($form->reveal())
+        ;
 
         $request = new Request();
         $form
             ->handleRequest($request)
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+        ;
         $form
             ->isSubmitted()
             ->shouldBeCalled()
-            ->willReturn(false);
+            ->willReturn(false)
+        ;
 
         $formView = $this->prophesize(FormView::class);
         $formViewDummy = $formView->reveal();
         $form
             ->createView()
             ->shouldBeCalled()
-            ->wilLReturn($formViewDummy);
+            ->wilLReturn($formViewDummy)
+        ;
 
         $action = new UserCreateAction(
             $this->userCreateTokenRepository->reveal(),
@@ -159,9 +175,9 @@ final class UserCreateActionTest extends TestCase
         );
         $response = $action->__invoke($userCreateToken->getToken(), $request);
 
-        self::assertInstanceOf(TemplateResponse::class, $response);
-        self::assertSame($expectedTemplate, $response->getTemplate());
-        self::assertSame([
+        static::assertInstanceOf(TemplateResponse::class, $response);
+        static::assertSame($expectedTemplate, $response->getTemplate());
+        static::assertSame([
             'register_form_view' => $formViewDummy,
             'email' => $userCreateToken->getEmail(),
         ], $response->getData());

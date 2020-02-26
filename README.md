@@ -29,6 +29,16 @@ bin/console doctrine:schema:create
 symfony serve
 ```
 
+### Load Fixtures
+
+If you want to have some sample data on the database, execute
+
+```bash
+php bin/console doctrine:fixtures:load
+```
+
+Beware, it will purge your existing database!
+
 
 ## Deploy origin master to production
 * Requires you to have deployer locally installed
@@ -47,11 +57,11 @@ dep deploy production
 ## PHP CS Fixer
 * Check files
 ```
-composer run-script cs-check
+composer cs-check
 ```
 * Fix files
 ```
-composer run-script cs-fix
+composer cs-fix
 ```
 
 ## Unit and functional tests

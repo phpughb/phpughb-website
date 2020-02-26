@@ -13,13 +13,17 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
-class UserCreateTokenManagerTest extends TestCase
+/**
+ * @internal
+ * @coversNothing
+ */
+final class UserCreateTokenManagerTest extends TestCase
 {
     /**
      * @test
      * @covers \App\Domain\User\UserCreateTokenManager::activate
      */
-    public function testUserCreateTokenIsRemovedAfterActivation(): void
+    public function userCreateTokenIsRemovedAfterActivation(): void
     {
         $userCreateToken = new UserCreateToken('some-token', 'some@email.de', false);
         $password = 'some-password';
@@ -32,10 +36,12 @@ class UserCreateTokenManagerTest extends TestCase
 
         $entityManager
             ->remove($userCreateToken)
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+        ;
         $entityManager
             ->flush()
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+        ;
 
         $userCreateTokenManager = new UserCreateTokenManager(
             $tokenGenerator->reveal(),

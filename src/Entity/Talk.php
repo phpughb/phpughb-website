@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,11 +35,56 @@ class Talk
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Appointment", inversedBy="talks")
      */
-    private Appointment $appointment;
+    private ?Appointment $appointment = null;
 
-    public function __construct(string $title, Appointment $appointment)
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Speaker", inversedBy="talks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Speaker $speaker;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
+     */
+    private Collection $attributes;
+
+    public function __construct(string $title, Speaker $speaker)
     {
         $this->title = $title;
+        $this->speaker = $speaker;
+        $speaker->addTalk($this);
+        $this->attributes = new ArrayCollection();
+    }
+
+    public function getSpeaker(): ?Speaker
+    {
+        return $this->speaker;
+    }
+
+    public function setAppointment(Appointment $appointment): void
+    {
         $this->appointment = $appointment;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return clone $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): void
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+        }
+    }
+
+    public function removeAttribute(Attribute $attribute): void
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+        }
     }
 }

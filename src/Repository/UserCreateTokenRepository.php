@@ -20,7 +20,8 @@ class UserCreateTokenRepository extends ServiceEntityRepository implements Token
         $queryBuilder = $this->createQueryBuilder('user_create_token');
         $queryBuilder
             ->where('user_create_token.token = :token')
-            ->setParameter('token', $token);
+            ->setParameter('token', $token)
+        ;
 
         return $queryBuilder->getQuery()->getSingleResult();
     }

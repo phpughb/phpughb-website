@@ -53,7 +53,8 @@ class UserCreateTokenManager
             ]))
             ->html($this->twig->render('email/user_create_token.html.twig', [
                 'token' => $userCreateToken->getToken(),
-            ]));
+            ]))
+        ;
 
         $this->mailer->send($email);
 
