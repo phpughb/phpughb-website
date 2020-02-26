@@ -61,11 +61,9 @@ class Talk
         return $this->speaker;
     }
 
-    public function setAppointment(Appointment $appointment): self
+    public function setAppointment(Appointment $appointment): void
     {
         $this->appointment = $appointment;
-
-        return $this;
     }
 
     /**
@@ -76,21 +74,17 @@ class Talk
         return clone $this->attributes;
     }
 
-    public function addAttribute(Attribute $attribute): self
+    public function addAttribute(Attribute $attribute): void
     {
         if (!$this->attributes->contains($attribute)) {
             $this->attributes[] = $attribute;
         }
-
-        return $this;
     }
 
-    public function removeAttribute(Attribute $attribute): self
+    public function removeAttribute(Attribute $attribute): void
     {
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
         }
-
-        return $this;
     }
 }

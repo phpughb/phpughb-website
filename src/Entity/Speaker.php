@@ -64,11 +64,9 @@ class Speaker
         return $this->user;
     }
 
-    public function linkUser(?User $user): self
+    public function linkUser(?User $user): void
     {
         $this->user = $user;
-
-        return $this;
     }
 
     public function getFullname(): string
@@ -93,13 +91,11 @@ class Speaker
         return new TalkCollection(...$this->talks->toArray());
     }
 
-    public function addTalk(Talk $talk): self
+    public function addTalk(Talk $talk): void
     {
         if (!$this->talks->contains($talk)) {
             $this->talks[] = $talk;
         }
-
-        return $this;
     }
 
     /**
@@ -110,21 +106,17 @@ class Speaker
         return clone $this->attributes;
     }
 
-    public function addAttribute(Attribute $attribute): self
+    public function addAttribute(Attribute $attribute): void
     {
         if (!$this->attributes->contains($attribute)) {
             $this->attributes[] = $attribute;
         }
-
-        return $this;
     }
 
-    public function removeAttribute(Attribute $attribute): self
+    public function removeAttribute(Attribute $attribute): void
     {
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
         }
-
-        return $this;
     }
 }

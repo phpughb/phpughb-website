@@ -68,11 +68,9 @@ class Appointment
         return $this->dateTime;
     }
 
-    public function addTalk(Talk $talk): self
+    public function addTalk(Talk $talk): void
     {
         $this->talks->add($talk);
         $talk->setAppointment($this);
-
-        return $this;
     }
 }

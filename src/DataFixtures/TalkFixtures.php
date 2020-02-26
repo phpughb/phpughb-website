@@ -25,10 +25,9 @@ class TalkFixtures extends Fixture implements DependentFixtureInterface
         $twitterType = new AttributeType('twitter', 'twitter');
         $twitterAttr = new Attribute($twitterType, 'djbasster');
 
-        $speaker = (new Speaker('Ole', 'Rößner'))
-            ->addAttribute($twitterAttr)
-            ->linkUser($oleUser)
-          ;
+        $speaker = new Speaker('Ole', 'Rößner');
+        $speaker->addAttribute($twitterAttr);
+        $speaker->linkUser($oleUser);
 
         $talk = new Talk('SOLIDe Symfony Apps', $speaker);
 
