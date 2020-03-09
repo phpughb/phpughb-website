@@ -8,7 +8,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class UserFixture extends Fixture
+final class UserFixture extends Fixture
 {
     public const USER_OLE = 'user:Ole';
 

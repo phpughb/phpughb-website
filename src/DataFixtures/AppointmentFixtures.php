@@ -10,8 +10,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class AppointmentFixtures extends Fixture implements DependentFixtureInterface
+final class AppointmentFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const PHPUGHB_3 = 'appointment:phpughb3';
+
     public function load(ObjectManager $manager): void
     {
         /** @var \App\Entity\Talk $talk */
@@ -28,7 +30,7 @@ class AppointmentFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
 
-        $this->addReference('appointment:phpughb3', $appointment);
+        $this->addReference(self::PHPUGHB_3, $appointment);
     }
 
     /**
