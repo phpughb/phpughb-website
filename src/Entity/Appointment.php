@@ -34,9 +34,7 @@ class Appointment
     private string $title;
 
     /**
-     * @ORM\Column(type="string", length=2000, nullable=true)
-     *
-     * @Assert\Length(max="2000")
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $text;
 
@@ -50,12 +48,23 @@ class Appointment
      */
     private Collection $talks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="appointments")
+     */
+    private ?Location $location = null;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
+     */
+    private Collection $attributes;
+
     public function __construct(string $title, ?string $text = null, ?DateTimeInterface $dateTime = null)
     {
         $this->title = $title;
         $this->text = $text;
         $this->dateTime = $dateTime;
         $this->talks = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getTitle(): string
@@ -72,5 +81,37 @@ class Appointment
     {
         $this->talks->add($talk);
         $talk->setAppointment($this);
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): void
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): void
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+        }
+    }
+
+    public function removeAttribute(Attribute $attribute): void
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+        }
     }
 }

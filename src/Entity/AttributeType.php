@@ -20,10 +20,10 @@ class AttributeType
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=50)
      *
      * @Assert\NotBlank
-     * @Assert\Length(max="10")
+     * @Assert\Length(max="50")
      */
     private string $faIcon;
 
