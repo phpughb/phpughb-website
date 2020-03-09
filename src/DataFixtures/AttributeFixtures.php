@@ -26,7 +26,7 @@ final class AttributeFixtures extends Fixture
         $twitterType = new AttributeType('twitter', 'twitter');
         $youtubeType = new AttributeType('youtube', 'youtube');
         $latLngType = new AttributeType('map-marker-alt', 'latlng');
-        $ticketsType = new AttributeType('ticket-alt', 'ticket');
+        $ticketsType = new AttributeType('calendar-check', 'tickets');
 
         $manager->persist($twitterType);
         $manager->persist($youtubeType);

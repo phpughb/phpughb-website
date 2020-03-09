@@ -10,8 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity()
  */
-class Location
+class Location implements AttributeAware
 {
+    use AttributeTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -63,11 +65,6 @@ class Location
      */
     private Collection $appointments;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
-     */
-    private Collection $attributes;
-
     public function __construct(string $name, string $street, string $streetNumber, string $zipCode, string $city)
     {
         $this->name = $name;
@@ -76,7 +73,7 @@ class Location
         $this->zipCode = $zipCode;
         $this->city = $city;
         $this->appointments = new ArrayCollection();
-        $this->attributes = new ArrayCollection();
+        $this->initAttributes();
     }
 
     public function getId(): ?int
@@ -140,27 +137,5 @@ class Location
     public function getAppointments(): Collection
     {
         return $this->appointments;
-    }
-
-    /**
-     * @return Collection|Attribute[]
-     */
-    public function getAttributes(): Collection
-    {
-        return $this->attributes;
-    }
-
-    public function addAttribute(Attribute $attribute): void
-    {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes[] = $attribute;
-        }
-    }
-
-    public function removeAttribute(Attribute $attribute): void
-    {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
-        }
     }
 }

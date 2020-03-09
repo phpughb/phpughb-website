@@ -40,4 +40,14 @@ class AttributeType
         $this->faIcon = $faIcon;
         $this->title = $title;
     }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getFaIcon(): string
+    {
+        return $this->faIcon;
+    }
 }

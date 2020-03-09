@@ -52,4 +52,14 @@ class Attribute
     {
         return $this->type;
     }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
 }

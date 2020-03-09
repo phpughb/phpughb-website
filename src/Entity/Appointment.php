@@ -16,8 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity(fields={"title"})
  */
-class Appointment
+class Appointment implements AttributeAware
 {
+    use AttributeTrait;
+
     /**
      * @ORM\Column(type="integer", unique=true)
      * @ORM\Id
@@ -53,18 +55,13 @@ class Appointment
      */
     private ?Location $location = null;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
-     */
-    private Collection $attributes;
-
     public function __construct(string $title, ?string $text = null, ?DateTimeInterface $dateTime = null)
     {
         $this->title = $title;
         $this->text = $text;
         $this->dateTime = $dateTime;
         $this->talks = new ArrayCollection();
-        $this->attributes = new ArrayCollection();
+        $this->initAttributes();
     }
 
     public function getTitle(): string
@@ -94,24 +91,10 @@ class Appointment
     }
 
     /**
-     * @return Collection|Attribute[]
+     * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
      */
-    public function getAttributes(): Collection
+    public function getTalks()
     {
-        return $this->attributes;
-    }
-
-    public function addAttribute(Attribute $attribute): void
-    {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes[] = $attribute;
-        }
-    }
-
-    public function removeAttribute(Attribute $attribute): void
-    {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
-        }
+        return $this->talks;
     }
 }
