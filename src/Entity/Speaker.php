@@ -94,4 +94,9 @@ class Speaker implements AttributeAware
             $this->talks[] = $talk;
         }
     }
+
+    public function __toString(): string
+    {
+        return sprintf('%s %s', $this->firstname, $this->lastname);
+    }
 }

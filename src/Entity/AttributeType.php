@@ -55,4 +55,9 @@ class AttributeType
     {
         return $this->faIcon;
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 }

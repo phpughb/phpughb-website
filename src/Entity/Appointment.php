@@ -102,4 +102,14 @@ class Appointment implements AttributeAware
     {
         return $this->talks;
     }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 }

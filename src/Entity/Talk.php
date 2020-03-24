@@ -66,7 +66,17 @@ class Talk implements AttributeAware
         $this->appointment = $appointment;
     }
 
+    public function getAppointment(): ?Appointment
+    {
+        return $this->appointment;
+    }
+
     public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function __toString(): string
     {
         return $this->title;
     }

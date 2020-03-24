@@ -138,4 +138,9 @@ class Location implements AttributeAware
     {
         return $this->appointments;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

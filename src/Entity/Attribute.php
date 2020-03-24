@@ -67,4 +67,9 @@ class Attribute
     {
         return $this->url;
     }
+
+    public function __toString(): string
+    {
+        return sprintf('%s -> %s', $this->type, $this->value);
+    }
 }

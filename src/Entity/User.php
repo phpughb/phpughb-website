@@ -84,7 +84,7 @@ class User implements UserInterface
         $this->encodedPassword = $encodedPassword;
     }
 
-    public function __toString()
+    public function __toString(): string 
     {
         return $this->getUsername();
     }

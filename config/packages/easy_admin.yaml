@@ -1,4 +1,9 @@
 easy_admin:
+    site_name: '<img src="/asset/img/logo.png" width="30" /> PHPUGHB <em style="font-size: 80%;">Admin</em>'
+    user:
+        name_property_path: 'username'
+        display_name: true
+        display_avatar: false
     entities:
         - App\Entity\Appointment
         - App\Entity\Attribute
