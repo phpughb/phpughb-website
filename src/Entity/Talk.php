@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,8 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity(fields={"title"})
  */
-class Talk
+class Talk implements AttributeAware
 {
+    use AttributeTrait;
+
     /**
      * @ORM\Column(type="integer", unique=true)
      * @ORM\Id
@@ -43,17 +43,17 @@ class Talk
      */
     private Speaker $speaker;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
-     */
-    private Collection $attributes;
-
     public function __construct(string $title, Speaker $speaker)
     {
         $this->title = $title;
         $this->speaker = $speaker;
         $speaker->addTalk($this);
-        $this->attributes = new ArrayCollection();
+        $this->initAttributes();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getSpeaker(): ?Speaker
@@ -66,25 +66,18 @@ class Talk
         $this->appointment = $appointment;
     }
 
-    /**
-     * @return Collection|Attribute[]
-     */
-    public function getAttributes(): Collection
+    public function getAppointment(): ?Appointment
     {
-        return clone $this->attributes;
+        return $this->appointment;
     }
 
-    public function addAttribute(Attribute $attribute): void
+    public function getTitle(): string
     {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes[] = $attribute;
-        }
+        return $this->title;
     }
 
-    public function removeAttribute(Attribute $attribute): void
+    public function __toString(): string
     {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
-        }
+        return $this->title;
     }
 }

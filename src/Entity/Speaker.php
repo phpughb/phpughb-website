@@ -12,8 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  */
-class Speaker
+class Speaker implements AttributeAware
 {
+    use AttributeTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -41,17 +43,12 @@ class Speaker
      */
     private Collection $talks;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute")
-     */
-    private Collection $attributes;
-
     public function __construct(string $firstname, string $lastname)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->talks = new ArrayCollection();
-        $this->attributes = new ArrayCollection();
+        $this->initAttributes();
     }
 
     public function getId(): ?int
@@ -98,25 +95,8 @@ class Speaker
         }
     }
 
-    /**
-     * @return Collection|Attribute[]
-     */
-    public function getAttributes(): Collection
+    public function __toString(): string
     {
-        return clone $this->attributes;
-    }
-
-    public function addAttribute(Attribute $attribute): void
-    {
-        if (!$this->attributes->contains($attribute)) {
-            $this->attributes[] = $attribute;
-        }
-    }
-
-    public function removeAttribute(Attribute $attribute): void
-    {
-        if ($this->attributes->contains($attribute)) {
-            $this->attributes->removeElement($attribute);
-        }
+        return sprintf('%s %s', $this->firstname, $this->lastname);
     }
 }

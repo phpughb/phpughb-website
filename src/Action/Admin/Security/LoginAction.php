@@ -31,7 +31,7 @@ final class LoginAction
     public function __invoke(): LazyResponseInterface
     {
         if ($this->tokenStorage->getToken()->getUser() instanceof User) {
-            return new RedirectResponse('app_admin_dashboard');
+            return new RedirectResponse('easyadmin');
         }
 
         $error = $this->authenticationUtils->getLastAuthenticationError();

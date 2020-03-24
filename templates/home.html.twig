@@ -5,30 +5,43 @@
 {% endblock %}
 
 {% block content %}
-<div class="card mb-4">
-    <img class="card-img-top" src="/asset/img/phpughb2.jpeg"  alt="Card image cap">
-    <div class="card-body">
-        <h2 class="card-subtitle">Am 23.10.2019 | Wesertower @ hmmh</h2>
-        <div class="card-text" style="font-size: 20px; color: #666; margin-top: 10px">
-            <h4>Sponsoren</h4>
-            <div><a href="#"><i class="fas fa-map-marker-alt"></i> hmmh Multimediahaus AG</a></div>
-            <hr/>
-            <h4>Talks</h4>
-            <h5>Imports like a Pro</h5>
-            <div><i class="fas fa-user-friends"></i> Denis Brumann</div>
-            <div><a href="#"><i class="fab fa-twitter"></i> @dbrumann</a></div>
-            <div><a href="#"><i class="fab fa-youtube"></i> Ansehen</a></div>
-            <br/>
-            <h5>Disco - A fresh look at DI</h5>
-            <div><i class="fas fa-user-friends"></i> Stephan Hochdörfer</div>
-            <div><a href="#"><i class="fab fa-twitter"></i> @shochdoerfer</a></div>
-            <div><i class="fab fa-youtube"></i> Leider kein Mittschnitt vorhanden</div>
-            <hr/>
-            <h4>Teilnahme</h4>
-            Der Eintritt ist Frei! Wenn ihr uns bei der Planung helfen wollt, dann meldet euch bitte hier an:
-            <br/>
-            <a href="#"><i class="far fa-calendar-check"></i> Anmelden</a>
+    {% for appointment in appointments %}
+        <div class="card mb-4">
+            <img class="card-img-top" src="/asset/img/phpughb2.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-subtitle">Am {{ appointment.dateTime | date('d.m.Y') }}
+                    | {{ appointment.location.name }}</h2>
+                <div class="card-text" style="font-size: 20px; color: #666; margin-top: 10px">
+                    <h4>Sponsoren</h4>
+                    <div><a href="#"><i class="fas fa-map-marker-alt"></i> hmmh Multimediahaus AG</a></div>
+                    <hr/>
+                    <h4>Talks</h4>
+                    {% for talk in appointment.talks %}
+                        <h5>{{ talk.title }}</h5>
+                        <div><i class="fas fa-user-friends"></i> {{ talk.speaker.fullname }}</div>
+                        {% if talk.speaker.hasAttribute('twitter') %}
+                            {% set twitterHandle = talk.speaker.getAttribute('twitter').value %}
+                            <div><a href="https://twitter.com/{{ twitterHandle }}"><i class="fab fa-twitter"></i>
+                                    @{{ twitterHandle }}</a></div>
+                        {% endif %}
+                        {% for talkAttr in talk.attributes %}
+                            <div><a href="{{ talkAttr.url | default('#') }}"><i
+                                            class="fab fa-{{ talkAttr.type.faIcon }}"></i> {{ talkAttr.value }}</a>
+                            </div>
+                        {% endfor %}
+                        <br/>
+                    {% endfor %}
+                    <hr/>
+                    {% if appointment.hasAttribute('tickets') %}
+                        {% set tickets = appointment.getAttribute('tickets') %}
+                        <h4>Teilnahme</h4>
+                        Der Eintritt ist Frei! Wenn ihr uns bei der Planung helfen wollt, dann meldet euch bitte hier an:
+                        <br/>
+                        <a href="{{ tickets.url }}"><i class="far fa-{{ tickets.type.faIcon }}"></i> {{ tickets.value }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    {% endfor %}
 {% endblock %}

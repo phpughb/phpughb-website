@@ -48,8 +48,28 @@ class Attribute
         $this->url = $url;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getType(): AttributeType
     {
         return $this->type;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%s -> %s', $this->type, $this->value);
     }
 }

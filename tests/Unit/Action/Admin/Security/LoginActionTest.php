@@ -35,7 +35,7 @@ final class LoginActionTest extends TestCase
      */
     public function redirectToDashboardWhenTokenStorageContainsUser(): void
     {
-        $expectedRouteName = 'app_admin_dashboard';
+        $expectedRouteName = 'easyadmin';
 
         $token = $this->prophesize(TokenInterface::class);
         $this->tokenStorage

@@ -20,10 +20,10 @@ class AttributeType
     private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=50)
      *
      * @Assert\NotBlank
-     * @Assert\Length(max="10")
+     * @Assert\Length(max="50")
      */
     private string $faIcon;
 
@@ -39,5 +39,25 @@ class AttributeType
     {
         $this->faIcon = $faIcon;
         $this->title = $title;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getFaIcon(): string
+    {
+        return $this->faIcon;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

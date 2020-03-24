@@ -6,9 +6,9 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
-class UserFixture extends Fixture
+final class UserFixture extends Fixture
 {
     public const USER_OLE = 'user:Ole';
 

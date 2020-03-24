@@ -27,6 +27,6 @@ final class RestrictedPagesSmokeTest extends WebTestCase
 
     public function provideRestrictedPages(): iterable
     {
-        yield 'Admin Dashboard' => ['/admin/dashboard'];
+        yield 'Admin Dashboard' => ['/admin/'];
     }
 }
