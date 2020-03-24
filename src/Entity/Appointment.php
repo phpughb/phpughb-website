@@ -16,8 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity(fields={"title"})
  */
-class Appointment
+class Appointment implements AttributeAware
 {
+    use AttributeTrait;
+
     /**
      * @ORM\Column(type="integer", unique=true)
      * @ORM\Id
@@ -34,9 +36,7 @@ class Appointment
     private string $title;
 
     /**
-     * @ORM\Column(type="string", length=2000, nullable=true)
-     *
-     * @Assert\Length(max="2000")
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $text;
 
@@ -50,12 +50,18 @@ class Appointment
      */
     private Collection $talks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="appointments")
+     */
+    private ?Location $location = null;
+
     public function __construct(string $title, ?string $text = null, ?DateTimeInterface $dateTime = null)
     {
         $this->title = $title;
         $this->text = $text;
         $this->dateTime = $dateTime;
         $this->talks = new ArrayCollection();
+        $this->initAttributes();
     }
 
     public function getTitle(): string
@@ -72,5 +78,23 @@ class Appointment
     {
         $this->talks->add($talk);
         $talk->setAppointment($this);
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): void
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection|\Doctrine\Common\Collections\Collection
+     */
+    public function getTalks()
+    {
+        return $this->talks;
     }
 }
