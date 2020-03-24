@@ -49,6 +49,11 @@ class User implements UserInterface
         $this->role = $role;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getRoles(): array
     {
         return [$this->role];
@@ -77,5 +82,10 @@ class User implements UserInterface
     public function setEncodedPassword(string $encodedPassword): void
     {
         $this->encodedPassword = $encodedPassword;
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 }

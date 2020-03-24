@@ -64,6 +64,11 @@ class Appointment implements AttributeAware
         $this->initAttributes();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getTitle(): string
     {
         return $this->title;

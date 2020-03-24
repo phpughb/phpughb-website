@@ -48,6 +48,11 @@ class Attribute
         $this->url = $url;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getType(): AttributeType
     {
         return $this->type;

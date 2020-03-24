@@ -51,6 +51,11 @@ class Talk implements AttributeAware
         $this->initAttributes();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function getSpeaker(): ?Speaker
     {
         return $this->speaker;
