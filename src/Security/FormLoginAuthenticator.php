@@ -10,6 +10,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
@@ -46,6 +47,10 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         $username = $request->request->get(self::POST_USERNAME);
         $password = $request->request->get(self::POST_PASSWORD);
 
+        if ($request->hasSession()) {
+            $request->getSession()->set(Security::LAST_USERNAME, $username);
+        }
+
         return new Credentials($username, $password);
     }
 
@@ -67,7 +72,7 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
-        return new RedirectResponse($this->router->generate('app_admin_dashboard'));
+        return new RedirectResponse($this->router->generate('easyadmin'));
     }
 
     protected function getLoginUrl(): string

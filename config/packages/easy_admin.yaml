@@ -6,4 +6,3 @@ easy_admin:
         - App\Entity\Location
         - App\Entity\Speaker
         - App\Entity\Talk
-        - App\Entity\User
