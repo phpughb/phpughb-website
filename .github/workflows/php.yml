@@ -19,5 +19,11 @@ jobs:
     - name: Build webpack
       run: yarn encore prod
 
+    - name: Create database
+      run: bin/console doctrine:database:create --env test
+
+    - name: Create database schema
+      run: bin/console doctrine:schema:create --env test
+
     - name: Run test suite
       run: bin/phpunit
